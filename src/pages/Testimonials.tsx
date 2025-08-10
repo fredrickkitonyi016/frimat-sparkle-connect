@@ -1,9 +1,10 @@
 import SEO from "@/components/SEO";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import { Star } from "lucide-react";
 import a1 from "@/assets/avatar-1.jpg";
 import a2 from "@/assets/avatar-2.jpg";
 import a3 from "@/assets/avatar-3.jpg";
+import { useEffect, useState } from "react";
 
 const testimonials = [
   { id: 1, name: "Amina K.", role: "CEO, FinServe", avatar: a2, rating: 5, quote: "FRIMAT delivered beyond expectations — our uptime and performance improved dramatically." },
@@ -12,6 +13,16 @@ const testimonials = [
 ];
 
 const Testimonials = () => {
+  const [api, setApi] = useState<CarouselApi | null>(null);
+
+  useEffect(() => {
+    if (!api) return;
+    const id = setInterval(() => {
+      api.scrollNext();
+    }, 6000);
+    return () => clearInterval(id);
+  }, [api]);
+
   return (
     <div className="container py-12">
       <SEO
@@ -26,7 +37,7 @@ const Testimonials = () => {
       </header>
 
       <div className="relative">
-        <Carousel className="w-full">
+        <Carousel className="w-full" setApi={setApi}>
           <CarouselContent>
             {testimonials.map((t) => (
               <CarouselItem key={t.id} className="md:basis-1/2 lg:basis-1/3">
