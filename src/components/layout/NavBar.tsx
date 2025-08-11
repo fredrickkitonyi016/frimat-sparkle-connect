@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import * as React from "react";
+import { motion } from "framer-motion";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -20,12 +21,19 @@ const NavBar: React.FC = () => {
   return (
     <header className="sticky top-0 z-40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
       <nav className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <span className="inline-block h-6 w-6 rounded-sm bg-gradient-primary" aria-hidden />
-          <div className="leading-tight">
-            <span className="block font-semibold tracking-wide">FRIMAT TECHNOLOGIES</span>
-            <span className="block text-xs text-muted-foreground">Connecting Innovation</span>
-          </div>
+        <Link to="/" className="flex items-center gap-3" aria-label="FRIMAT TECHNOLOGIES home">
+          <motion.img
+            src="/lovable-uploads/ba6e4688-aafe-49ba-bf33-3137f4ec6e09.png"
+            alt="FRIMAT TECHNOLOGIES logo — Connecting Innovation. Delivering Solutions."
+            className="h-8 md:h-10 w-auto"
+            initial={{ opacity: 0, y: -4, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            whileHover={{ scale: 1.05, rotate: 1 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            decoding="async"
+            loading="eager"
+          />
+          <span className="sr-only">FRIMAT TECHNOLOGIES</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
