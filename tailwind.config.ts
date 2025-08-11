@@ -19,8 +19,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-				display: ['Playfair Display', 'serif'],
+				display: ['Poppins', 'Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				sans: ['Inter', 'Roboto', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				mono: ['Fira Code', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',

@@ -48,7 +48,7 @@ const NavBar: React.FC = () => {
               {item.label}
             </NavLink>
           ))}
-          <Button asChild variant="hero" className="water-drop">
+          <Button asChild variant="hero" className="water-drop btn-glow">
             <Link to="/contact">Get Started</Link>
           </Button>
         </div>
@@ -73,7 +73,7 @@ const NavBar: React.FC = () => {
                 {item.label}
               </NavLink>
             ))}
-            <Button asChild variant="hero" className="water-drop">
+            <Button asChild variant="hero" className="water-drop btn-glow">
               <Link to="/contact">Get Started</Link>
             </Button>
           </div>
