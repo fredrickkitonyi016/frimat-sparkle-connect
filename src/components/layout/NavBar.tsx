@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+    <header className="fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t">
       <nav className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-3" aria-label="FRIMAT TECHNOLOGIES home">
           <motion.img
@@ -48,7 +48,7 @@ const NavBar: React.FC = () => {
               {item.label}
             </NavLink>
           ))}
-          <Button asChild variant="hero">
+          <Button asChild variant="hero" className="water-drop">
             <Link to="/contact">Get Started</Link>
           </Button>
         </div>
@@ -59,7 +59,7 @@ const NavBar: React.FC = () => {
       </nav>
 
       {open && (
-        <div className="md:hidden border-t">
+        <div className="md:hidden fixed bottom-16 left-0 right-0 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container py-3 flex flex-col gap-3">
             {navItems.map((item) => (
               <NavLink
@@ -73,7 +73,7 @@ const NavBar: React.FC = () => {
                 {item.label}
               </NavLink>
             ))}
-            <Button asChild variant="hero">
+            <Button asChild variant="hero" className="water-drop">
               <Link to="/contact">Get Started</Link>
             </Button>
           </div>
