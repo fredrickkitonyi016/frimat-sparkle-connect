@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, Info, Wrench, Briefcase, Newspaper, ShoppingCart, MessageCircle, Phone, type LucideIcon } from "lucide-react";
 import * as React from "react";
 import { motion } from "framer-motion";
 
@@ -14,6 +14,17 @@ const navItems = [
   { to: "/testimonials", label: "Testimonials" },
   { to: "/contact", label: "Contact" },
 ];
+
+const iconsMap: Record<string, LucideIcon> = {
+  '/': Home,
+  '/about': Info,
+  '/services': Wrench,
+  '/portfolio': Briefcase,
+  '/blog': Newspaper,
+  '/shop': ShoppingCart,
+  '/testimonials': MessageCircle,
+  '/contact': Phone,
+};
 
 const NavBar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -37,17 +48,22 @@ const NavBar: React.FC = () => {
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `text-sm transition-colors hover:text-foreground ${isActive ? "text-foreground" : "text-muted-foreground"}`
-              }
-            >
-              {item.label}
-            </NavLink>
-          ))}
+          {navItems.map((item) => {
+            const Icon = iconsMap[item.to as keyof typeof iconsMap];
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                aria-label={item.label}
+                className={({ isActive }) =>
+                  `water-drop hover-scale p-2 rounded-md transition-colors hover:text-foreground ${isActive ? "text-foreground" : "text-muted-foreground"}`
+                }
+              >
+                <Icon className="h-5 w-5" aria-hidden="true" />
+                <span className="sr-only">{item.label}</span>
+              </NavLink>
+            );
+          })}
           <Button asChild variant="hero" className="water-drop btn-glow">
             <Link to="/contact">Get Started</Link>
           </Button>
@@ -61,18 +77,23 @@ const NavBar: React.FC = () => {
       {open && (
         <div className="md:hidden fixed bottom-16 left-0 right-0 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container py-3 flex flex-col gap-3">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  `text-sm transition-colors hover:text-foreground ${isActive ? "text-foreground" : "text-muted-foreground"}`
-                }
-              >
-                {item.label}
-              </NavLink>
-            ))}
+            {navItems.map((item) => {
+              const Icon = iconsMap[item.to as keyof typeof iconsMap];
+              return (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  aria-label={item.label}
+                  className={({ isActive }) =>
+                    `water-drop hover-scale p-2 rounded-md transition-colors hover:text-foreground ${isActive ? "text-foreground" : "text-muted-foreground"}`
+                  }
+                >
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                  <span className="sr-only">{item.label}</span>
+                </NavLink>
+              );
+            })}
             <Button asChild variant="hero" className="water-drop btn-glow">
               <Link to="/contact">Get Started</Link>
             </Button>
