@@ -4,6 +4,8 @@ import { Menu, X, Home, Info, Wrench, Briefcase, Newspaper, ShoppingCart, Messag
 import * as React from "react";
 import { motion } from "framer-motion";
 
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
 const navItems = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About Us" },
@@ -25,6 +27,13 @@ const iconsMap: Record<string, LucideIcon> = {
   '/testimonials': MessageCircle,
   '/contact': Phone,
 };
+
+const serviceLinks = [
+  { label: 'Web Development', to: '/services#web-development' },
+  { label: 'IT Support', to: '/services#it-support' },
+  { label: 'Cybersecurity', to: '/services#cybersecurity' },
+  { label: 'Cloud Solutions', to: '/services#cloud-solutions' },
+];
 
 const NavBar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -50,6 +59,30 @@ const NavBar: React.FC = () => {
         <div className="hidden md:flex items-center gap-6">
           {navItems.map((item) => {
             const Icon = iconsMap[item.to as keyof typeof iconsMap];
+            if (item.to === "/services") {
+              return (
+                <DropdownMenu key={item.to}>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      aria-label="Services menu"
+                      className="water-drop hover-scale p-2 rounded-md transition-colors text-muted-foreground hover:text-foreground"
+                    >
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                      <span className="sr-only">Services</span>
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent side="top" align="center" className="z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border rounded-md p-1 min-w-[14rem]">
+                    {serviceLinks.map((s) => (
+                      <DropdownMenuItem asChild key={s.to}>
+                        <Link to={s.to} className="story-link">
+                          {s.label}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              );
+            }
             return (
               <NavLink
                 key={item.to}
@@ -79,6 +112,30 @@ const NavBar: React.FC = () => {
           <div className="container py-3 flex flex-col gap-3">
             {navItems.map((item) => {
               const Icon = iconsMap[item.to as keyof typeof iconsMap];
+              if (item.to === "/services") {
+                return (
+                  <DropdownMenu key={item.to}>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        aria-label="Services menu"
+                        className={`water-drop hover-scale p-2 rounded-md transition-colors text-muted-foreground hover:text-foreground`}
+                      >
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                        <span className="sr-only">Services</span>
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent side="top" align="center" className="z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border rounded-md p-1 min-w-[14rem]">
+                      {serviceLinks.map((s) => (
+                        <DropdownMenuItem asChild key={s.to}>
+                          <Link to={s.to} onClick={() => setOpen(false)} className="story-link">
+                            {s.label}
+                          </Link>
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                );
+              }
               return (
                 <NavLink
                   key={item.to}

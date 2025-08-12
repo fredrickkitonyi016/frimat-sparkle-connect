@@ -12,10 +12,10 @@ import { Link } from "react-router-dom";
 
 const Services = () => {
   const services = [
-    { title: "Web Development", desc: "Modern, scalable websites and applications.", icon: <Code />, image: devImg },
-    { title: "IT Support", desc: "Reliable support to keep you running.", icon: <Headphones />, image: itsupportImg },
-    { title: "Cybersecurity", desc: "Protect your business from threats.", icon: <Shield />, image: secImg },
-    { title: "Cloud Solutions", desc: "Migrate, optimize, and scale in the cloud.", icon: <Cloud />, image: cloudImg },
+    { slug: "web-development", title: "Web Development", desc: "Modern, scalable websites and applications.", icon: <Code />, image: devImg },
+    { slug: "it-support", title: "IT Support", desc: "Reliable support to keep you running.", icon: <Headphones />, image: itsupportImg },
+    { slug: "cybersecurity", title: "Cybersecurity", desc: "Protect your business from threats.", icon: <Shield />, image: secImg },
+    { slug: "cloud-solutions", title: "Cloud Solutions", desc: "Migrate, optimize, and scale in the cloud.", icon: <Cloud />, image: cloudImg },
   ];
 
   return (
@@ -33,7 +33,7 @@ const Services = () => {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {services.map((s) => (
-          <Card key={s.title} className="glass-card overflow-hidden hover-scale">
+          <Card id={s.slug} key={s.title} className="glass-card overflow-hidden hover-scale">
             <AspectRatio ratio={16/9}>
               <LazyImage
                 src={s.image}
