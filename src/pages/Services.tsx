@@ -3,14 +3,17 @@ import LazyImage from "@/components/LazyImage";
 import devImg from "@/assets/service-webdev.jpg";
 import cloudImg from "@/assets/service-cloud.jpg";
 import secImg from "@/assets/service-security.jpg";
+import itsupportImg from "@/assets/about-office.jpg";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Code, Headphones, Shield, Cloud } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Services = () => {
   const services = [
     { title: "Web Development", desc: "Modern, scalable websites and applications.", icon: <Code />, image: devImg },
-    { title: "IT Support", desc: "Reliable support to keep you running.", icon: <Headphones />, image: devImg },
+    { title: "IT Support", desc: "Reliable support to keep you running.", icon: <Headphones />, image: itsupportImg },
     { title: "Cybersecurity", desc: "Protect your business from threats.", icon: <Shield />, image: secImg },
     { title: "Cloud Solutions", desc: "Migrate, optimize, and scale in the cloud.", icon: <Cloud />, image: cloudImg },
   ];
@@ -30,14 +33,20 @@ const Services = () => {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {services.map((s) => (
-          <article key={s.title} className="group rounded-lg border overflow-hidden bg-card">
-            <LazyImage src={s.image} alt={`${s.title} illustration`} className="h-36 w-full object-cover group-hover:scale-[1.02] transition-transform" />
-            <div className="p-5">
+          <Card key={s.title} className="glass-card overflow-hidden hover-scale">
+            <AspectRatio ratio={16/9}>
+              <LazyImage
+                src={s.image}
+                alt={`${s.title} illustration`}
+                className="h-full w-full object-cover"
+              />
+            </AspectRatio>
+            <CardContent className="p-5">
               <div className="text-primary mb-2">{s.icon}</div>
               <h3 className="font-medium">{s.title}</h3>
               <p className="text-sm text-muted-foreground mt-1">{s.desc}</p>
-            </div>
-          </article>
+            </CardContent>
+          </Card>
         ))}
       </div>
 
