@@ -45,7 +45,7 @@ const NavBar: React.FC = () => {
           <motion.img
             src="/lovable-uploads/ba6e4688-aafe-49ba-bf33-3137f4ec6e09.png"
             alt="FRIMAT TECHNOLOGIES logo — Connecting Innovation. Delivering Solutions."
-            className="h-8 md:h-10 w-auto"
+            className="h-8 md:h-10 w-auto brightness-0 invert"
             initial={{ opacity: 0, y: -4, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             whileHover={{ scale: 1.05, rotate: 1 }}
