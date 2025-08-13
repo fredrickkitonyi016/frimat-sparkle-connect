@@ -2,13 +2,19 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import LazyImage from "@/components/LazyImage";
+import AnimatedStats from "@/components/AnimatedStats";
+import FAQSection from "@/components/FAQSection";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
+import EnhancedProductsSection from "@/components/EnhancedProductsSection";
+import EnhancedServicesSection from "@/components/EnhancedServicesSection";
+import EnhancedContactForm from "@/components/EnhancedContactForm";
 import heroImage from "@/assets/hero-tech.jpg";
 import aboutImage from "@/assets/about-office.jpg";
 import p1 from "@/assets/portfolio-1.jpg";
 import p2 from "@/assets/portfolio-2.jpg";
 import p3 from "@/assets/portfolio-3.jpg";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowRight, Briefcase, PhoneCall, Brain, Cloud, Code2, ShieldCheck, ServerCog, Wrench } from "lucide-react";
+import { ArrowRight, Briefcase, PhoneCall, Brain, Cloud, Code2, ShieldCheck, ServerCog, Wrench, Star } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import Lottie from "lottie-react";
 import techNetwork from "@/assets/lottie/tech-network.json";
@@ -32,9 +38,9 @@ const FloatingIcon = ({ children, className, delay = 0 }: { children: React.Reac
 const TestimonialsRotator = () => {
   const items = useMemo(
     () => [
-      { id: 1, name: "Jane M.", role: "Business Owner", avatar: a1, rating: 5, quote: "FRIMAT TECHNOLOGIES transformed our outdated system into a streamlined, secure platform." },
-      { id: 2, name: "Kelvin R.", role: "CTO, StartupX", avatar: a2, rating: 5, quote: "Fast delivery, excellent communication, and rock-solid results." },
-      { id: 3, name: "Maria C.", role: "Ops Lead", avatar: a3, rating: 4, quote: "Our migration to the cloud was seamless and well-documented." },
+      { id: 1, name: "Jane M.", role: "Business Owner", avatar: a1, rating: 5, quote: "FRIMAT TECHNOLOGIES transformed our outdated system into a streamlined, secure platform. Their team delivered exactly what we needed!" },
+      { id: 2, name: "Kelvin R.", role: "CTO, StartupX", avatar: a2, rating: 5, quote: "Fast delivery, excellent communication, and rock-solid results. I highly recommend their cybersecurity services." },
+      { id: 3, name: "Maria C.", role: "Operations Manager", avatar: a3, rating: 5, quote: "Our migration to the cloud was seamless and well-documented. Great support throughout the entire process." },
     ],
     []
   );
@@ -130,7 +136,7 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
             transition={{ duration: 0.6 }}
             className="text-4xl md:text-6xl font-display font-semibold max-w-4xl"
           >
-            FRIMAT TECHNOLOGIES — Connecting Innovation. Delivering Solutions.
+            Connecting Innovation. Delivering Solutions.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, x: 20 }}
@@ -139,7 +145,7 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-lg md:text-xl text-muted-foreground mt-4 max-w-3xl"
           >
-            We build future-ready digital solutions for businesses and individuals.
+            We provide comprehensive IT solutions, e-citizen services, and tech accessories across Kenya. From web development to government document processing.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -148,13 +154,16 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
             transition={{ duration: 0.6, delay: 0.5 }}
             className="mt-8 flex flex-wrap gap-3"
           >
-            <Button asChild variant="hero" className="animate-enter">
+            <Button asChild variant="hero" className="animate-enter btn-glow">
               <Link to="/contact" className="flex items-center gap-2">
-                Get Started <ArrowRight size={16} />
+                Request a Service <ArrowRight size={16} />
               </Link>
             </Button>
             <Button asChild variant="outline" className="hover:shadow-[var(--shadow-elevated)]">
-              <Link to="/services">Our Services</Link>
+              <Link to="/services">Browse Services</Link>
+            </Button>
+            <Button asChild variant="secondary">
+              <Link to="/shop">Shop Products</Link>
             </Button>
           </motion.div>
         </div>
@@ -183,36 +192,8 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
         </motion.div>
       </section>
 
-      {/* 3️⃣ Services Overview */}
-      <section className="container py-12">
-        <h2 className="text-2xl md:text-3xl font-display font-semibold mb-6">Our Services</h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            { title: "Web Development", desc: "Responsive, scalable, and modern websites.", Icon: Code2 },
-            { title: "IT Support", desc: "On-demand technical assistance & maintenance.", Icon: Wrench },
-            { title: "Cybersecurity", desc: "Protect your data with advanced security measures.", Icon: ShieldCheck },
-            { title: "Cloud Solutions", desc: "Seamless migration and cloud hosting.", Icon: Cloud },
-          ].map(({ title, desc, Icon }, i) => (
-            <motion.article
-              key={title}
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="group rounded-lg border p-6 bg-card hover-scale"
-            >
-              <div className="mb-3 text-primary flex items-center justify-center h-12 w-12 rounded-full bg-primary/10">
-                <Icon className="transition-transform duration-300 group-hover:rotate-12" />
-              </div>
-              <h3 className="font-medium text-lg mb-1">{title}</h3>
-              <p className="text-sm text-muted-foreground">{desc}</p>
-            </motion.article>
-          ))}
-        </div>
-        <div className="mt-6">
-          <Link to="/services" className="story-link text-sm">View All Services</Link>
-        </div>
-      </section>
+      {/* 3️⃣ Enhanced Services Section */}
+      <EnhancedServicesSection />
 
       {/* 4️⃣ Featured Portfolio – Slider with autoplay */}
       <section className="container py-12">
@@ -260,9 +241,20 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
         </div>
       </section>
 
-      {/* 6️⃣ Client Testimonials – fade every 6s */}
-      <section className="container py-12">
-        <h2 className="text-2xl md:text-3xl font-display font-semibold mb-6">What Clients Say</h2>
+      {/* 🔸 Animated Statistics */}
+      <AnimatedStats />
+
+      {/* 🔹 Products/Accessories Section */}
+      <EnhancedProductsSection />
+
+      {/* 6️⃣ Client Testimonials – Enhanced with ratings */}
+      <section className="container py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-display font-semibold mb-4">What Our Clients Say</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Real feedback from satisfied customers across Kenya
+          </p>
+        </div>
         <TestimonialsRotator />
       </section>
 
@@ -290,6 +282,12 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
         </div>
       </section>
 
+      {/* 🔸 FAQ Section */}
+      <FAQSection />
+
+      {/* 🔹 Enhanced Contact Form */}
+      <EnhancedContactForm />
+
       {/* 8️⃣ Quick Links tiles (kept minimal) */}
       <section className="container py-16">
         <div className="grid gap-6 md:grid-cols-3">
@@ -314,6 +312,9 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
           ))}
         </div>
       </section>
+
+      {/* 🔸 WhatsApp Float Button */}
+      <WhatsAppFloat />
     </div>
   );
 };
