@@ -47,11 +47,19 @@ All colors MUST be HSL.
     --sidebar-border: 220 25% 18%;
     --sidebar-ring: 214 100% 65%;
 
-    /* Gradients & shadows */
-    --gradient-primary: linear-gradient(135deg, hsl(214 100% 65%), hsl(220 60% 40%));
+    /* Enhanced Gradients & shadows */
+    --gradient-primary: linear-gradient(135deg, hsl(214 100% 65%), hsl(280 70% 55%), hsl(320 80% 60%));
+    --gradient-secondary: linear-gradient(45deg, hsl(220 30% 8%), hsl(214 40% 12%));
     --gradient-subtle: linear-gradient(180deg, hsl(220 35% 5%), hsl(220 30% 8%));
-    --shadow-elevated: 0 0 30px hsl(214 100% 65% / 0.25), 0 0 50px hsl(220 60% 40% / 0.15);
+    --gradient-cyber: linear-gradient(90deg, hsl(214 100% 65%), transparent, hsl(214 100% 65%));
+    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(214 100% 65% / 0.1) 0%, transparent 50%), 
+                     radial-gradient(circle at 80% 20%, hsl(280 70% 55% / 0.1) 0%, transparent 50%),
+                     radial-gradient(circle at 40% 80%, hsl(320 80% 60% / 0.1) 0%, transparent 50%);
+    --shadow-elevated: 0 0 30px hsl(214 100% 65% / 0.25), 0 0 50px hsl(280 70% 55% / 0.15);
+    --shadow-neon: 0 0 5px hsl(214 100% 65%), 0 0 10px hsl(214 100% 65%), 0 0 15px hsl(214 100% 65%);
+    --shadow-cyber: 0 4px 15px 0 hsl(214 100% 65% / 0.2), 0 0 0 1px hsl(214 100% 65% / 0.05);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   .dark {
@@ -101,70 +109,163 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans;
+    background-image: var(--gradient-mesh);
+    background-attachment: fixed;
   }
 
-  h1, h2, h3 { @apply font-display; }
-  h1 { @apply uppercase tracking-wider; }
+  h1, h2, h3 { @apply font-display font-semibold; }
+  h1 { @apply text-5xl md:text-7xl tracking-tight leading-tight; }
+  h2 { @apply text-3xl md:text-4xl tracking-tight; }
+  h3 { @apply text-xl md:text-2xl tracking-tight; }
   code, pre { @apply font-mono; }
-  p { @apply text-muted-foreground; }
+  p { @apply text-muted-foreground leading-relaxed; }
+  
+  /* Enhanced scrollbar */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { @apply bg-secondary; }
+  ::-webkit-scrollbar-thumb { @apply bg-primary rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-primary/80; }
 }
 
 @layer utilities {
   .story-link {
-    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-gradient-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
   .hover-scale {
-    @apply transition-transform duration-200 hover:scale-105;
+    @apply transition-all duration-300 hover:scale-105 hover:rotate-1;
   }
   .pulse {
-    @apply animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite];
+    @apply animate-glow-pulse;
   }
 
-  /* Water drop / ripple utility */
-  .water-drop { position: relative; overflow: hidden; }
-  .water-drop::after {
-    content: "";
+  /* Enhanced cyber effects */
+  .cyber-border {
+    position: relative;
+    border: 1px solid hsl(var(--primary) / 0.3);
+  }
+  .cyber-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    padding: 1px;
+    background: var(--gradient-cyber);
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Advanced glassmorphism */
+  .glass-card {
+    @apply bg-secondary/20 border border-primary/30 rounded-2xl relative overflow-hidden;
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: var(--shadow-cyber), inset 0 1px 0 hsl(var(--primary) / 0.1);
+  }
+  .glass-card::before {
+    content: '';
     position: absolute;
     inset: 0;
-    margin: auto;
-    width: 0; height: 0;
-    border-radius: 9999px;
-    background: hsl(var(--primary) / 0.25);
-    transform: scale(0);
-    opacity: 0;
-    transition: var(--transition-smooth);
-  }
-  .water-drop:hover::after {
-    width: 160%; height: 160%;
-    transform: scale(1);
-    opacity: 1;
+    background: var(--gradient-mesh);
+    opacity: 0.1;
+    z-index: -1;
   }
 
-  /* Glassmorphism card */
-  .glass-card {
-    @apply bg-secondary/40 border border-primary/20 rounded-xl;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px hsl(214 100% 65% / 0.15);
-  }
-
-  /* Neon glow button */
+  /* Premium neon effects */
   .btn-glow {
     position: relative;
-    box-shadow: 0 0 12px hsl(214 100% 65% / 0.4), 0 0 24px hsl(220 60% 40% / 0.2);
-    transition: var(--transition-smooth);
+    background: var(--gradient-primary);
+    border: 1px solid hsl(var(--primary) / 0.4);
+    box-shadow: var(--shadow-neon);
+    transition: var(--transition-spring);
+    overflow: hidden;
+  }
+  .btn-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--foreground) / 0.1), transparent);
+    transition: left 0.5s;
+  }
+  .btn-glow:hover::before {
+    left: 100%;
   }
   .btn-glow:hover {
-    transform: translateY(-1px) scale(1.02);
-    box-shadow: 0 0 18px hsl(214 100% 65% / 0.6), 0 0 36px hsl(220 60% 40% / 0.35);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 25px hsl(214 100% 65%), 0 0 50px hsl(214 100% 65% / 0.5);
   }
 
-  /* Floating bubbles background */
+  /* Floating elements with enhanced physics */
+  .float-element {
+    @apply animate-float;
+    animation-delay: calc(var(--delay, 0) * 0.1s);
+  }
+
+  /* Matrix-style background elements */
+  .matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.05;
+  }
+  .matrix-char {
+    position: absolute;
+    color: hsl(var(--primary));
+    font-family: var(--font-mono);
+    font-size: 14px;
+    animation: matrix-rain linear infinite;
+    animation-delay: calc(var(--delay, 0) * 0.1s);
+    animation-duration: calc(3s + var(--duration, 0) * 1s);
+  }
+
+  /* Enhanced hover states */
+  .interactive-card {
+    @apply glass-card transition-all duration-500 hover:scale-105;
+    transform-style: preserve-3d;
+  }
+  .interactive-card:hover {
+    box-shadow: var(--shadow-elevated), var(--shadow-neon);
+    transform: translateY(-5px) rotateX(5deg) rotateY(5deg) scale(1.02);
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    background: linear-gradient(90deg, 
+      hsl(var(--muted)) 25%, 
+      hsl(var(--primary) / 0.1) 50%, 
+      hsl(var(--muted)) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  /* Floating bubbles with enhanced physics */
   .bubbles { @apply pointer-events-none absolute inset-0 -z-10 overflow-hidden; }
   .bubble {
-    @apply absolute rounded-full blur-[2px] opacity-50;
-    background: radial-gradient(circle at 30% 30%, hsl(var(--primary) / 0.35), transparent 60%);
-    box-shadow: var(--shadow-elevated);
+    @apply absolute rounded-full opacity-30;
+    background: radial-gradient(circle at 30% 30%, hsl(var(--primary) / 0.4), hsl(var(--accent) / 0.2) 60%, transparent 80%);
+    box-shadow: var(--shadow-cyber);
     animation: float-up linear infinite;
+    filter: blur(1px);
+  }
+
+  /* Text gradient effects */
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* Cyber glitch effect */
+  .glitch {
+    @apply animate-cyber-glitch;
+    filter: hue-rotate(90deg) saturate(150%);
   }
 }
 

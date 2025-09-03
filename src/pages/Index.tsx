@@ -134,7 +134,7 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-6xl font-display font-semibold max-w-4xl"
+            className="text-4xl md:text-7xl font-display font-bold max-w-4xl text-gradient leading-tight"
           >
             Connecting Innovation. Delivering Solutions.
           </motion.h1>
@@ -143,7 +143,7 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg md:text-xl text-muted-foreground mt-4 max-w-3xl"
+            className="text-lg md:text-2xl text-muted-foreground mt-6 max-w-3xl font-tech leading-relaxed"
           >
             We provide comprehensive IT solutions, e-citizen services, and tech accessories across Kenya. From web development to government document processing.
           </motion.p>
@@ -152,17 +152,17 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-8 flex flex-wrap gap-3"
+            className="mt-10 flex flex-wrap gap-4"
           >
-            <Button asChild variant="hero" className="animate-enter btn-glow">
+            <Button asChild variant="hero" size="lg" className="float-element">
               <Link to="/contact" className="flex items-center gap-2">
-                Request a Service <ArrowRight size={16} />
+                Request a Service <ArrowRight size={18} />
               </Link>
             </Button>
-            <Button asChild variant="outline" className="hover:shadow-[var(--shadow-elevated)]">
+            <Button asChild variant="cyber" size="lg" className="float-element" style={{'--delay': 1} as any}>
               <Link to="/services">Browse Services</Link>
             </Button>
-            <Button asChild variant="secondary">
+            <Button asChild variant="neon" size="lg" className="float-element" style={{'--delay': 2} as any}>
               <Link to="/shop">Shop Products</Link>
             </Button>
           </motion.div>
@@ -172,21 +172,29 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
       {/* 2️⃣ Company Snapshot */}
       <section className="container py-16">
         <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
-          className="grid gap-8 md:grid-cols-2 items-center">
+          className="grid gap-12 md:grid-cols-2 items-center">
           <div className="relative">
-            <div className="absolute -inset-2 rounded-xl bg-gradient-primary opacity-20 blur-md" aria-hidden />
-            <LazyImage src={aboutImage} alt="Modern office team collaborating on laptops" className="rounded-xl h-64 md:h-80 w-full object-cover" />
+            <div className="absolute -inset-4 rounded-2xl bg-gradient-primary opacity-30 blur-xl animate-glow-pulse" aria-hidden />
+            <div className="interactive-card p-2">
+              <LazyImage src={aboutImage} alt="Modern office team collaborating on laptops" className="rounded-2xl h-72 md:h-96 w-full object-cover" />
+            </div>
           </div>
-          <div>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold">Who We Are</h2>
-            <p className="text-muted-foreground mt-3">
+          <div className="space-y-6">
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-gradient">Who We Are</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed font-tech">
               FRIMAT TECHNOLOGIES specializes in creating custom IT solutions that drive efficiency, security, and growth. From sleek websites to robust networking systems, we empower businesses to excel in a digital-first world.
             </p>
-            <div className="mt-4 max-w-[180px]">
-              <Lottie animationData={techNetwork} loop autoplay className="h-20" />
+            <div className="flex items-center gap-4">
+              <div className="max-w-[200px]">
+                <Lottie animationData={techNetwork} loop autoplay className="h-24" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="text-primary font-mono text-sm">// Innovation.exe</div>
+                <div className="text-muted-foreground font-mono text-xs">Running since 2019...</div>
+              </div>
             </div>
-            <Button asChild className="mt-6" variant="secondary">
-              <Link to="/about">Learn More About Us</Link>
+            <Button asChild variant="premium" size="lg" className="mt-8">
+              <Link to="/about">Discover Our Journey</Link>
             </Button>
           </div>
         </motion.div>
@@ -221,22 +229,38 @@ const parallaxY = useTransform(scrollY, [0, 300], [0, -60]);
       </section>
 
       {/* 5️⃣ Why Choose Us */}
-      <section className="container py-12">
-        <h2 className="text-2xl md:text-3xl font-display font-semibold mb-6">Why Choose Us</h2>
-        <div className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {[{icon:PhoneCall,label:"24/7 Support"},{icon:Briefcase,label:"Certified Experts"},{icon:ServerCog,label:"Affordable Pricing"},{icon:Brain,label:"Custom Solutions"}].map((item, i) => {
+      <section className="container py-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-gradient mb-4">Why Choose Us</h2>
+          <p className="text-muted-foreground text-lg font-tech">Excellence in every digital solution</p>
+        </motion.div>
+        <div className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {[{icon:PhoneCall,label:"24/7 Support",desc:"Round-the-clock assistance"},{icon:Briefcase,label:"Certified Experts",desc:"Industry professionals"},{icon:ServerCog,label:"Affordable Pricing",desc:"Competitive rates"},{icon:Brain,label:"Custom Solutions",desc:"Tailored for you"}].map((item, i) => {
             const Icon = item.icon as any;
             return (
-              <div key={item.label} className="relative flex flex-col items-center rounded-lg border p-6">
-                <div className="flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary animate-[pulse_5s_ease-in-out_infinite]">
-                  <Icon />
+              <motion.div 
+                key={item.label} 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="interactive-card p-8 text-center group"
+              >
+                <div className="flex items-center justify-center h-16 w-16 mx-auto rounded-full bg-gradient-primary text-primary-foreground mb-4 group-hover:animate-float">
+                  <Icon size={24} />
                 </div>
-                <div className="mt-3 font-medium">{item.label}</div>
-              </div>
+                <div className="font-bold font-tech text-lg mb-2">{item.label}</div>
+                <div className="text-muted-foreground text-sm font-tech">{item.desc}</div>
+              </motion.div>
             );
           })}
-          <div className="pointer-events-none absolute left-0 right-0 top-1/2 hidden -translate-y-1/2 lg:block">
-            <div className="mx-20 h-px bg-border" />
+          <div className="pointer-events-none absolute inset-0 hidden lg:block">
+            <div className="absolute top-1/2 left-1/4 w-1/2 h-px bg-gradient-primary opacity-30 animate-shimmer" />
           </div>
         </div>
       </section>
